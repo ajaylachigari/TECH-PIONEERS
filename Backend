@@ -1,0 +1,50 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowRight, Sparkles, TrendingUp, User } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import VirtualTryOn from '@/components/VirtualTryOn';
+import { Image } from '@/components/ui/image';
+import { BaseCrudService } from '@/integrations';
+import type { KeyFeatures, HowItWorks, TechnologyStack, BusinessImpact, SocialImpact, TeamMembers } from '@/entities';
+
+export default function HomePage() {
+  const [keyFeatures, setKeyFeatures] = useState<KeyFeatures[]>([]);
+  const [howItWorks, setHowItWorks] = useState<HowItWorks[]>([]);
+  const [techStack, setTechStack] = useState<TechnologyStack[]>([]);
+  const [businessImpact, setBusinessImpact] = useState<BusinessImpact[]>([]);
+  const [socialImpact, setSocialImpact] = useState<SocialImpact[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMembers[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setIsLoading(true);
+    try {
+      const [featuresRes, howItWorksRes, techRes, businessRes, socialRes, teamRes] = await Promise.all([
+        BaseCrudService.getAll<KeyFeatures>('keyfeatures'),
+        BaseCrudService.getAll<HowItWorks>('howitworks'),
+        BaseCrudService.getAll<TechnologyStack>('technologystack'),
+        BaseCrudService.getAll<BusinessImpact>('businessimpact'),
+        BaseCrudService.getAll<SocialImpact>('socialimpact'),
+        BaseCrudService.getAll<TeamMembers>('teammembers'),
+      ]);
+
+      setKeyFeatures(featuresRes.items.sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)));
+      setHowItWorks(howItWorksRes.items.sort((a, b) => (a.stepNumber || 0) - (b.stepNumber || 0)));
+      setTechStack(techRes.items);
+      setBusinessImpact(businessRes.items);
+      setSocialImpact(socialRes.items);
+      setTeamMembers(teamRes.items);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
