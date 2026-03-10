@@ -1,0 +1,481 @@
+<div className={col-span-12 lg:col-span-6 ${index % 2 === 1 ? 'lg:col-start-7' : ''}}>
+                      <div className="flex items-center gap-6 mb-6">
+                        <span className="font-heading text-6xl text-accent">
+                          {step.stepNumber}
+                        </span>
+                        <h3 className="font-heading text-3xl text-primary">
+                          {step.stepTitle}
+                        </h3>
+                      </div>
+                      <p className="font-paragraph text-lg text-foreground mb-8">
+                        {step.stepDescription}
+                      </p>
+                      {step.callToActionUrl && (
+                        <a
+                          href={step.callToActionUrl}
+                          className="inline-flex items-center gap-2 font-paragraph text-base text-primary font-semibold hover:text-accent transition-colors"
+                        >
+                          Learn More
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                    <div className={col-span-12 lg:col-span-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}}>
+                      {step.stepImage && (
+                        <div className="aspect-video">
+                          <Image
+                            src={step.stepImage}
+                            alt={step.stepTitle || Step ${step.stepNumber}}
+                            width={800}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-24">
+                <p className="font-paragraph text-lg text-foreground">
+                  No steps available at the moment.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Stack Section */}
+      <section id="technology" className="w-full bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-heading text-5xl text-primary mb-6">
+              Technology Stack
+            </h2>
+            <p className="font-paragraph text-lg text-foreground max-w-3xl mx-auto">
+              Built with cutting-edge technologies to deliver the best experience
+            </p>
+          </motion.div>
+
+          <div className="min-h-[400px]">
+            {isLoading ? null : techStack.length > 0 ? (
+              <div className="space-y-16">
+                {['Frontend', 'Backend', 'AI Components'].map((category) => {
+                  const categoryTech = techStack.filter(tech => tech.category === category);
+                  if (categoryTech.length === 0) return null;
+
+                  return (
+                    <motion.div
+                      key={category}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <h3 className="font-heading text-3xl text-primary mb-8">
+                        {category}
+                      </h3>
+                      <div className="grid grid-cols-12 gap-8">
+                        {categoryTech.map((tech, index) => (
+                          <motion.div
+                            key={tech._id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3"
+                          >
+                            <div className="bg-background p-6 h-full">
+                              {tech.logo && (
+                                <div className="mb-4 h-16 flex items-center justify-center">
+                                  <Image
+                                    src={tech.logo}
+                                    alt={tech.technologyName || 'Technology'}
+                                    width={100}
+                                    className="max-h-full w-auto object-contain"
+                                  />
+                                </div>
+                              )}
+                              <h4 className="font-heading text-xl text-primary mb-3">
+                                {tech.technologyName}
+                              </h4>
+                              <p className="font-paragraph text-sm text-foreground mb-4">
+                                {tech.description}
+                              </p>
+                              {tech.websiteUrl && (
+                                <a
+                                  href={tech.websiteUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-paragraph text-sm text-primary font-semibold hover:text-accent transition-colors"
+                                >
+                                  Learn More
+                                </a>
+                              )}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-24">
+                <p className="font-paragraph text-lg text-foreground">
+                  No technology information available at the moment.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Business Impact Section */}
+      <section id="business-impact" className="w-full bg-background">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-12 gap-24"
+          >
+            <div className="col-span-12 lg:col-span-5">
+              <h2 className="font-heading text-5xl text-primary mb-8">
+                Business Impact
+              </h2>
+              <p className="font-paragraph text-lg text-foreground">
+                Transforming the fashion industry with AI-powered personalization
+              </p>
+            </div>
+            <div className="col-span-12 lg:col-span-7">
+              <div className="min-h-[300px]">
+                {isLoading ? null : businessImpact.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {businessImpact.map((impact, index) => (
+                      <motion.div
+                        key={impact._id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="bg-secondary p-8"
+                      >
+                        {impact.benefitImage && (
+                          <div className="mb-6 h-12">
+                            <Image
+                              src={impact.benefitImage}
+                              alt={impact.impactTitle || 'Impact'}
+                              width={100}
+                              className="h-full w-auto object-contain"
+                            />
+                          </div>
+                        )}
+                        <h3 className="font-heading text-2xl text-primary mb-4">
+                          {impact.impactTitle}
+                        </h3>
+                        {impact.metricValue !== undefined && (
+                          <div className="mb-4">
+                            <span className="font-heading text-4xl text-accent">
+                              {impact.metricValue}
+                              {impact.metricUnit}
+                            </span>
+                          </div>
+                        )}
+                        <p className="font-paragraph text-base text-foreground">
+                          {impact.description}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-24">
+                    <p className="font-paragraph text-lg text-foreground">
+                      No business impact data available at the moment.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Social Impact Section */}
+      <section id="social-impact" className="w-full bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-heading text-5xl text-primary mb-6">
+              Social Impact
+            </h2>
+            <p className="font-paragraph text-lg text-foreground max-w-3xl mx-auto">
+              Making fashion more accessible and enjoyable for everyone
+            </p>
+          </motion.div>
+
+          <div className="min-h-[400px]">
+            {isLoading ? null : socialImpact.length > 0 ? (
+              <div className="grid grid-cols-12 gap-12">
+                {socialImpact.map((impact, index) => (
+                  <motion.div
+                    key={impact._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="col-span-12 md:col-span-6"
+                  >
+                    <div className="bg-background p-12 h-full">
+                      {impact.impactImage && (
+                        <div className="mb-8 aspect-video">
+                          <Image
+                            src={impact.impactImage}
+                            alt={impact.impactTitle || 'Social Impact'}
+                            width={600}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <h3 className="font-heading text-3xl text-primary mb-6">
+                        {impact.impactTitle}
+                      </h3>
+                      {impact.impactHighlight && (
+                        <p className="font-paragraph text-xl text-accent mb-6 font-semibold">
+                          {impact.impactHighlight}
+                        </p>
+                      )}
+                      <p className="font-paragraph text-lg text-foreground mb-6">
+                        {impact.description}
+                      </p>
+                      {impact.userBenefit && (
+                        <p className="font-paragraph text-base text-foreground">
+                          {impact.userBenefit}
+                        </p>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-24">
+                <p className="font-paragraph text-lg text-foreground">
+                  No social impact data available at the moment.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="w-full bg-background">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-heading text-5xl text-primary mb-6">
+              Team Tech Pioneers
+            </h2>
+            <p className="font-paragraph text-lg text-foreground max-w-3xl mx-auto">
+              Meet the innovators behind StyleSense
+            </p>
+          </motion.div>
+
+          <div className="min-h-[400px]">
+            {isLoading ? null : teamMembers.length > 0 ? (
+              <div className="grid grid-cols-12 gap-12">
+                {teamMembers.map((member, index) => (
+                  <motion.div
+                    key={member._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3"
+                  >
+                    <div className="bg-secondary p-8 text-center h-full">
+                      {member.profileImage && (
+                        <div className="mb-6 aspect-square mx-auto max-w-[200px]">
+                          <Image
+                            src={member.profileImage}
+                            alt={member.memberName || 'Team Member'}
+                            width={200}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <h3 className="font-heading text-xl text-primary mb-2">
+                        {member.memberName}
+                      </h3>
+                      <p className="font-paragraph text-base text-accent mb-4 font-semibold">
+                        {member.role}
+                      </p>
+                      {member.shortBio && (
+                        <p className="font-paragraph text-sm text-foreground mb-6">
+                          {member.shortBio}
+                        </p>
+                      )}
+                      {member.linkedInProfile && (
+                        <a
+                          href={member.linkedInProfile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-paragraph text-sm text-primary font-semibold hover:text-accent transition-colors"
+                        >
+                          LinkedIn Profile
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-24">
+                <p className="font-paragraph text-lg text-foreground">
+                  No team members available at the moment.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="w-full bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <div className="grid grid-cols-12 gap-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="col-span-12 lg:col-span-5"
+            >
+              <h2 className="font-heading text-5xl text-primary mb-8">
+                Join the Future of Fashion
+              </h2>
+              <p className="font-paragraph text-lg text-foreground mb-12">
+                Ready to transform your fashion experience? Get in touch with us to learn more 
+                about StyleSense and how AI-powered recommendations can revolutionize your wardrobe.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Sparkles className="w-6 h-6 text-accent" />
+                  <span className="font-paragraph text-base text-foreground">
+                    Personalized AI recommendations
+                  </span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <TrendingUp className="w-6 h-6 text-accent" />
+                  <span className="font-paragraph text-base text-foreground">
+                    Real-time trend analysis
+                  </span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <User className="w-6 h-6 text-accent" />
+                  <span className="font-paragraph text-base text-foreground">
+                    Virtual try-on experience
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="col-span-12 lg:col-span-7"
+            >
+              <form className="bg-background p-12 space-y-8">
+                <div>
+                  <label htmlFor="name" className="block font-paragraph text-base text-primary mb-3 font-semibold">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="w-full px-6 py-4 bg-secondary border border-foreground font-paragraph text-base text-primary focus:outline-none focus:border-accent transition-colors"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block font-paragraph text-base text-primary mb-3 font-semibold">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full px-6 py-4 bg-secondary border border-foreground font-paragraph text-base text-primary focus:outline-none focus:border-accent transition-colors"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="interest" className="block font-paragraph text-base text-primary mb-3 font-semibold">
+                    I'm interested in
+                  </label>
+                  <select
+                    id="interest"
+                    name="interest"
+                    className="w-full px-6 py-4 bg-secondary border border-foreground font-paragraph text-base text-primary focus:outline-none focus:border-accent transition-colors"
+                    required
+                  >
+                    <option value="">Select an option</option>
+                    <option value="try">Trying StyleSense</option>
+                    <option value="recommendations">Getting Recommendations</option>
+                    <option value="partnership">Partnership Opportunities</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block font-paragraph text-base text-primary mb-3 font-semibold">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    className="w-full px-6 py-4 bg-secondary border border-foreground font-paragraph text-base text-primary focus:outline-none focus:border-accent transition-colors resize-none"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-accent text-accent-foreground font-paragraph font-semibold px-8 py-4 rounded transition-opacity hover:opacity-90"
+                >
+                  Send Message
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}
