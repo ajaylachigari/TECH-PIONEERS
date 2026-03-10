@@ -1,0 +1,214 @@
+<div className="min-h-screen bg-background">
+      <Header />
+      <VirtualTryOn />
+
+      {/* Hero Section */}
+      <section id="home" className="w-full bg-secondary">
+        <div className="max-w-[120rem] mx-auto px-8 py-32">
+          <div className="grid grid-cols-12 gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="col-span-12 lg:col-span-6"
+            >
+              <h1 className="font-heading text-6xl lg:text-7xl text-primary mb-8">
+                StyleSense
+              </h1>
+              <p className="font-paragraph text-2xl text-foreground mb-12">
+                Generative AI Powered Fashion Recommendation System
+              </p>
+              <p className="font-paragraph text-lg text-foreground mb-16 max-w-2xl">
+                Discover personalized outfits tailored to your unique style, body shape, and preferences. 
+                Our AI analyzes fashion trends, your purchase history, and personal preferences to recommend 
+                the perfect outfits for every occasion.
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <a
+                  href="#features"
+                  className="inline-flex items-center gap-3 bg-accent text-accent-foreground font-paragraph font-semibold px-8 py-4 rounded transition-opacity hover:opacity-90"
+                >
+                  Try StyleSense
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="inline-flex items-center gap-3 bg-transparent text-primary font-paragraph font-semibold px-8 py-4 rounded border border-primary transition-opacity hover:opacity-70"
+                >
+                  Learn More
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="col-span-12 lg:col-span-6"
+            >
+              <div className="relative aspect-square">
+                <Image
+                  src="https://static.wixstatic.com/media/d91698_d3224cd0d5dd425db00bd84bac0c54ea~mv2.png?originWidth=768&originHeight=768"
+                  alt="AI Fashion Recommendation Visualization"
+                  width={800}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="w-full bg-background">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-12 gap-24"
+          >
+            <div className="col-span-12 lg:col-span-5">
+              <h2 className="font-heading text-5xl text-primary mb-8">
+                About the Project
+              </h2>
+            </div>
+            <div className="col-span-12 lg:col-span-7">
+              <p className="font-paragraph text-lg text-foreground mb-8">
+                StyleSense is a Generative AI-powered fashion recommendation system that revolutionizes 
+                how people discover and choose their outfits. Our platform suggests clothes to users based on:
+              </p>
+              <ul className="space-y-4 mb-12">
+                {[
+                  'Personal preferences and style choices',
+                  'Past purchases and shopping behavior',
+                  'Current fashion trends from social media',
+                  'Body measurements and shape analysis',
+                  'Budget constraints and preferences'
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="font-paragraph text-base text-foreground flex items-start gap-4"
+                  >
+                    <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+              <p className="font-paragraph text-lg text-foreground">
+                The system analyzes user data and fashion images to generate personalized outfit 
+                recommendations, making fashion choices smarter, faster, and more enjoyable.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section id="features" className="w-full bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-heading text-5xl text-primary mb-6">
+              Key Features
+            </h2>
+            <p className="font-paragraph text-lg text-foreground max-w-3xl mx-auto">
+              Discover the powerful capabilities that make StyleSense your ultimate fashion companion
+            </p>
+          </motion.div>
+
+          <div className="min-h-[600px]">
+            {isLoading ? null : keyFeatures.length > 0 ? (
+              <div className="grid grid-cols-12 gap-12">
+                {keyFeatures.map((feature, index) => (
+                  <motion.div
+                    key={feature._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="col-span-12 md:col-span-6 lg:col-span-4"
+                  >
+                    <div className="bg-background p-8 h-full">
+                      {feature.image && (
+                        <div className="mb-6 aspect-video">
+                          <Image
+                            src={feature.image}
+                            alt={feature.title || 'Feature'}
+                            width={400}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <h3 className="font-heading text-2xl text-primary mb-4">
+                        {feature.title}
+                      </h3>
+                      <p className="font-paragraph text-base text-foreground mb-6">
+                        {feature.description}
+                      </p>
+                      {feature.callToActionLabel && feature.callToActionLink && (
+                        <a
+                          href={feature.callToActionLink}
+                          className="inline-flex items-center gap-2 font-paragraph text-base text-primary font-semibold hover:text-accent transition-colors"
+                        >
+                          {feature.callToActionLabel}
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-24">
+                <p className="font-paragraph text-lg text-foreground">
+                  No features available at the moment.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="w-full bg-background">
+        <div className="max-w-[100rem] mx-auto px-8 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24"
+          >
+            <h2 className="font-heading text-5xl text-primary mb-6">
+              How It Works
+            </h2>
+            <p className="font-paragraph text-lg text-foreground max-w-3xl mx-auto">
+              Get personalized fashion recommendations in just a few simple steps
+            </p>
+          </motion.div>
+
+          <div className="min-h-[600px]">
+            {isLoading ? null : howItWorks.length > 0 ? (
+              <div className="space-y-24">
+                {howItWorks.map((step, index) => (
+                  <motion.div
+                    key={step._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className={`grid grid-cols-12 gap-24 items-center ${
+                      index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                    }`}
+                  >
